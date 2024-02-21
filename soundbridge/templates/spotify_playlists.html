@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}your playlists.{% endblock %}
+
+{% block content %}
+<div class="playlist-container">
+    <div class="playlist-intro">
+        <p> 
+            <span class="gradient-text">::your playlists::</span>
+            contains details on your music libraries -- get in-depth listening statistics for each of your music services. click on one of your playlist tabs below to view your playlists. 
+        </p>
+    </div>
+    <div class="playlist-display-container">
+        <div class="playlist-list">
+            <div class="playlist-tabs">
+                <a class="tab"><img src="{{ url_for('static', filename='../static/assets/Spotify_Icon_RGB_Green.png') }}" style="height: 24px;"></a>
+                <a class="tab" href="{{ url_for('main.show_youtube_music_playlists', playlists=youtube_playlists) }}"><img src="{{ url_for('static', filename='../static/assets/youtube_music_logo.jpg') }}" style="height: 28px;"></a>
+            </div>
+            <ul>
+                <img src="{{ url_for('static', filename='../static/assets/Spotify_Logo_RGB_White.png') }}" style="width: auto; height: 50px; display: flex; margin-bottom: 20px;">
+                {% for playlist in playlists %}
+                    <li class="playlist-item">
+                        <a href="{{ url_for('main.show_spotify_playlist_tracks', playlist_id=playlist['id']) }}" class="playlist-link">
+                            {{ playlist['name'] }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="pagination">
+                {% for page_num in range(1, (total_playlists // per_page) + 2) %}
+                    {% if page_num == current_page %}
+                        <span>{{ page_num }}</span>
+                    {% else %}
+                        <a href="{{ url_for('main.show_spotify_playlists', page=page_num) }}">{{ page_num }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <!-- <div class="playlist-list">
+            <ul style="margin-top: 0.3rem;">
+                <div class="gradient-text" style="margin-bottom: 16px;">::your playlist insights::</div>
+            </ul>
+        </div> -->
+    </div>  
+</div>
+{% endblock %}
+

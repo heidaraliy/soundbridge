@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}your playlists.{% endblock %}
+
+{% block content %}
+<div class="playlist-container">
+    <div class="playlist-intro">
+        <p> 
+            <span class="gradient-text">::your playlists::</span>
+            contains details on your music libraries -- get in-depth listening statistics for each of your music services. click on one of your playlist tabs below to view your playlists. 
+        </p>
+    </div>
+    <div class="playlist-display-container">
+        <div class="playlist-list">
+            <div class="playlist-tabs">
+                <a class="tab" href="{{ url_for('main.show_spotify_playlists', page=1) }}"><img src="{{ url_for('static', filename='assets/Spotify_Icon_RGB_Green.png') }}" style="height: 24px;"></a>
+                <a class="tab"><img src="{{ url_for('static', filename='assets/youtube_music_logo.jpg') }}" style="height: 28px;"></a>
+            </div>
+            <ul>
+                <img src="{{ url_for('static', filename='assets/yt_music_full_logo_white.svg') }}" style="width: auto; height: 50px; display: flex; margin-bottom: 20px;">
+                {% for playlist_name in playlists %}
+                    <li class="playlist-item">
+                        <a class="playlist-link">
+                            {{ playlist_name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>  
+</div>
+{% endblock %}
+

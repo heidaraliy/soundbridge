@@ -1,16 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login to SoundBridge</title>
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
-</head>
-<body>
-    <div class="login-container">
-        <h1>Welcome to SoundBridge</h1>
-        <p>Migrate your playlists from other music services directly to Spotify with ease.</p>
-        <a href="{{ url_for('main.login') }}" class="login-button">Login with Spotify</a>
+{% extends 'base.html' %}
+
+{% block title %}login to soundbridge.{% endblock %}
+
+{% block content %}
+<!-- <div class="login-alert-container">
+    <span>you're already connected to that service!</span>
+</div> -->
+<div class="login-container">
+    <div>
+        <p> 
+            <span class="gradient-text">::soundbridge::</span>
+            allows you to view & migrate your playlists from music service to music service. follow the steps below to get started.
+        </p>
     </div>
-</body>
-</html>
+    <div class="step-container">
+        <div class="step-text-container">
+            <div style="font-size: 2rem; text-shadow: 3px 3px black;">
+                1. connect to your music services.
+            </div>
+            <br>
+            <div style="font-size: 1.5rem; text-shadow: 2px 2px black;">
+                currently, soundbridge offers services for spotify and youtube music, with additional services planned for integration in the near future.
+            </div>
+        </div>
+        <div class="login-button-container">
+            <div class="login-connection-container">
+                <a href="{{ url_for('main.spotify_login') }}" class="login-button">
+                    <img src="../static/assets/Spotify_Icon_RGB_Green.png">
+                    <span>login ⇒ spotify.</span> 
+                </a>
+                {% if user_connected_to_spotify %}
+                    <span class="login-connection-connected">connected!</span>
+                {% else %}
+                    <span class="login-connection-not-connected">not connected.</span>
+                {% endif %}
+            </div>
+            <div class="login-connection-container">
+                <a href="{{ url_for('main.spotify_login') }}" class="login-button">
+                    <img src="../static/assets/youtube_music_logo.jpg">
+                    <span>login ⇒ youtube music.</span> 
+                </a>
+                {% if user_connected_to_youtube_music %}
+                <span class="login-connection-connected">connected!</span>
+                {% else %}
+                    <span class="login-connection-not-connected">not connected.</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="step-container">
+        <div class="step-text-container">
+            <div style="font-size: 2rem; text-shadow: 3px 3px black;">
+                2. choose an option.
+            </div>
+            <br>
+            <div style="font-size: 1.5rem; text-shadow: 2px 2px black;">
+                view information on your playlists and tracks, export playlist data, and transfer your playlists from music service to music service.
+            </div>
+        </div>
+        <div class="login-button-container">
+            <div class="login-connection-container">
+                <a href="{{ url_for('main.show_spotify_playlists', page=1) }}" class="login-button" style="padding-right: 8px; padding-left: 8px;">
+                    <span class="material-symbols-outlined" style="margin-right: 8px;">
+                        visibility
+                    </span>
+                    <span>view your playlists.</span> 
+                </a>
+            </div>
+            <div class="login-connection-container">
+                <a href="{{ url_for('main.spotify_login') }}" class="login-button" style="padding-right: 8px; padding-left: 8px;">
+                    <span class="material-symbols-outlined" style="margin-right: 8px;">
+                        compare_arrows
+                    </span>
+                    <span>transfer your playlists.</span> 
+                </a>
+            </div>
+            <div class="login-connection-container">
+                <a href="{{ url_for('main.spotify_login') }}" class="login-button" style="padding-right: 8px; padding-left: 8px;">
+                    <span class="material-symbols-outlined" style="margin-right: 8px;">
+                        export_notes
+                    </span>
+                    <span>export your playlist data.</span> 
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

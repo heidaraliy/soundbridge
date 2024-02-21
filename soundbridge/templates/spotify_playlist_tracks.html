@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}soundbridge: {{ playlist_name }}{% endblock %}
+
+{% block content %}
+<div class="track-table-container">
+    <div style="display: flex;" class="track-page-header-container">
+        <img src="{{ url_for('static', filename='../static/assets/Spotify_Logo_RGB_White.png') }}" style="width: auto; height: 60px; display: flex; flex-direction: row; align-items: center;">
+        <div class="track-intro">
+            <div class="gradient-text" style="font-size: 3rem;">::{{ playlist_name }}::</div>
+            <p> 
+                see every track on this playlist in the table below.
+            </p>
+        </div>
+    </div>
+    <table class="playlist-table">
+        <thead>
+            <tr>
+                <th>track name.</th>
+                <th>artist.</th>
+                <th>duration.</th>
+                <!-- <th>Times Listened</th>
+                <th>Total Hours</th>
+                <th>Genre</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in tracks['items'] %}
+                <tr>
+                    <td>{{ item['track']['name'] }}</td>
+                    <td>
+                        {% for artist in item['track']['artists'] %}
+                            {{ artist['name'] }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {{ item['track']['duration_ms'] | format_duration }}
+                    </td>
+                    <!--
+                    <td>Total Hours Placeholder</td>
+                    <td>Genre Placeholder</td> -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>    
+{% endblock %}

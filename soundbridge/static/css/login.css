@@ -1,0 +1,132 @@
+
+.gradient-text {
+    font-weight: bold;
+    background: linear-gradient( 
+        to right, 
+        #d1baf5, /* Yellowish Shade */
+        #F9F871,  /* Light Blue */
+        #FF6F91, /* Soft Red */ 
+        darkorange, /* Soft Orange */ 
+        #FF6F91, /* Soft Red */
+        #FFC75F, /* Yellowish Shade */
+        #d1baf5  /* Light Blue */
+        );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    text-shadow: none;
+}
+
+.login-container {
+    text-align: center;
+    color: white;
+    padding-top: 36px;
+}
+
+.login-container p {
+    width: 60%;
+    color: white;
+    font-size: 1.75rem;
+    margin: 0 auto;
+    margin-top: 72px;
+    margin-bottom: 36px;
+    letter-spacing: -1px;
+    text-shadow: 2px 2px black;
+}
+
+.step-container {
+    border: 1px solid #1b2741;
+    border-radius: 2px;
+    background-color: #764b81;
+    margin: 8px auto;
+    width: 75%;
+    box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px; 
+}
+
+.step-text-container {
+    font-size: 1.5rem;
+    margin: 24px auto;
+    letter-spacing: 0.25px;
+    width: 90%;
+}
+
+.login-button-container {
+    display: flex;
+    flex-direction: row;
+    margin: 8px auto;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+}
+
+.login-button {
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 8px 2px;
+    background-color: white;
+    color: black;
+    border: none; 
+    border-radius: 2px; 
+    cursor: pointer;
+    text-decoration: none; 
+    font-size: 24px; 
+    box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.5); 
+    margin: 12px;
+    text-shadow: none;
+    letter-spacing: -1px;
+    scale: 100%;
+    transform: translate(0px, 0px); 
+    transition: scale, transform ease-in-out .1s;
+    width: 100%;
+    max-width: 280px;
+    margin-bottom: 12px;
+}
+
+.login-button img {
+    height: 32px;
+    width: 32px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    scale: 101%;
+    transform: translate(1px, -1px); 
+    transition: scale, transform ease-in-out .1s;
+    cursor: pointer;
+}
+
+.login-connection-container {
+    display: flex;
+    width: 300px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 12px;
+}
+
+.login-connection-not-connected {
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 2px 2px red;
+}
+
+.login-connection-connected {
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 2px 2px forestgreen;
+}
+
+.login-alert-container {
+    border: 2px solid black;
+    color: black;
+    position: absolute;
+    right: 0;
+    font-size: 1.25rem;
+    margin: 8px;
+    padding: 8px;
+}
+

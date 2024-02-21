@@ -1,0 +1,77 @@
+
+.track-table-container {
+    text-align: center;
+    width: 100%;
+    color: white;
+    padding-top: 36px;
+}
+
+.track-intro {
+    width: 80%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.track-intro p {
+    width: 60%;
+    color: white;
+    font-size: 1.75rem;
+    margin: 0 auto;
+    margin-bottom: 36px;
+    letter-spacing: -1px;
+    text-shadow: 2px 2px black;
+}
+
+.track-page-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 48px;
+    margin-right: 48px;
+    margin-top: 72px;
+    width: 90%;
+}
+
+.playlist-table {
+    width: 90%; /* Table width */
+    margin: 20px auto; /* Center table on the page with margin */
+    background-color: #342e5e; /* Background color for table */
+    border-collapse: collapse; /* Collapse borders */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-top: -8px;
+}
+
+.playlist-table th {
+    background-color: #4e4678; /* Darker background color for headers */
+    color: white;
+    padding: 12px 8px; /* Padding for table headers */
+    border: 1px solid #342e5e; /* Border color to match the table background */
+    letter-spacing: 1px; /* Spacing for uppercase letters */
+    font-weight: normal;
+    font-size: 1.5rem;
+}
+
+.playlist-table td {
+    padding: 10px; /* Padding for table cells */
+    border: 1px solid #4e4678; /* Slight border for cells */
+    color: #cfc9e5; /* Lighter text color for content */
+    font-size: 1.15rem;
+}
+
+.playlist-table tr:nth-child(even) {
+    background-color: #3a3460; /* Alternating row color */
+}
+
+.playlist-table tr:hover {
+    background-color: #423c6e; /* Hover row color */
+}
+
+.playlist-table a {
+    color: #dcd2f5; /* Link color */
+    text-decoration: none; /* No underline on links */
+}
+
+.playlist-table a:hover {
+    text-decoration: underline; /* Underline on hover for links */
+}

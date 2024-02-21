@@ -1,0 +1,88 @@
+
+/* base */
+body, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+    font-family: "VT323", monospace;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #34184a
+}
+
+/* components */
+.header, .footer {
+    padding: 1rem;
+}
+
+/* utils */
+.hidden {
+    display: none;
+}
+
+/* layout */
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+.logo-img {
+    height: 90px; 
+    width: 150px;
+    scale: 100%;
+    margin-right: 25px;
+    transition: scale, 0.2s
+}
+
+.logo-img:hover {
+    height: 90px; 
+    width: 150px;
+    scale: 105%;
+    transition: scale, 0.2s
+}
+
+.navbar {
+    position: fixed;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    background: #764b81;
+    width: 100%;
+    border-bottom: 2px solid #1b2741;
+    box-shadow: 4px 4px 3px 1px rgba(0, 0, 0, .33);
+}
+
+.navbar p {
+    font-size: 1.8rem;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    margin-right: 50px;
+    text-shadow: 1.5px 1.5px rgba(0, 0, 0, .66);
+    background: #764b81;
+    cursor: pointer;
+    scale: 100%;
+    transition: scale 0.2s;
+}
+
+.navbar p:hover {
+    font-size: 1.8rem;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    margin-right: 50px;
+    text-shadow: 2.5px 2.5px rgba(0, 0, 0, .9);
+    background: #764b81;
+    cursor: pointer;
+    scale: 105%;
+    transition: scale 0.2s;
+} 
+
+/* responsivity */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+}
+  
