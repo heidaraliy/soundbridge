@@ -16,10 +16,9 @@
 .track-intro p {
     width: 60%;
     color: white;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     margin: 0 auto;
     margin-bottom: 36px;
-    letter-spacing: -1px;
     text-shadow: 2px 2px black;
 }
 
@@ -45,18 +44,19 @@
 .playlist-table th {
     background-color: #4e4678; /* Darker background color for headers */
     color: white;
-    padding: 12px 8px; /* Padding for table headers */
+    padding: 10px 16px; /* Padding for table headers */
     border: 1px solid #342e5e; /* Border color to match the table background */
-    letter-spacing: 1px; /* Spacing for uppercase letters */
     font-weight: normal;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    
 }
 
 .playlist-table td {
     padding: 10px; /* Padding for table cells */
     border: 1px solid #4e4678; /* Slight border for cells */
     color: #cfc9e5; /* Lighter text color for content */
-    font-size: 1.15rem;
+    font-size: 1.1rem;
+    
 }
 
 .playlist-table tr:nth-child(even) {

@@ -3,9 +3,10 @@
 body, h1, h2, h3, p {
     margin: 0;
     padding: 0;
-    font-family: "VT323", monospace;
+    font-family: "Syne Mono", monospace;
     font-weight: 400;
     font-style: normal;
+    letter-spacing: -0.1em;
     background-color: #34184a
 }
 
@@ -27,15 +28,15 @@ body, h1, h2, h3, p {
 
 .logo-img {
     height: 90px; 
-    width: 150px;
+    width: 120px;
     scale: 100%;
-    margin-right: 25px;
+    margin-top: 5px;
     transition: scale, 0.2s
 }
 
 .logo-img:hover {
     height: 90px; 
-    width: 150px;
+    width: 120px;
     scale: 105%;
     transition: scale, 0.2s
 }
@@ -51,14 +52,15 @@ body, h1, h2, h3, p {
     width: 100%;
     border-bottom: 2px solid #1b2741;
     box-shadow: 4px 4px 3px 1px rgba(0, 0, 0, .33);
+    z-index: 50;
 }
 
 .navbar p {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: white;
     align-items: center;
     justify-content: center;
-    margin-right: 50px;
+    margin-right: 30px;
     text-shadow: 1.5px 1.5px rgba(0, 0, 0, .66);
     background: #764b81;
     cursor: pointer;
@@ -67,11 +69,11 @@ body, h1, h2, h3, p {
 }
 
 .navbar p:hover {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: white;
     align-items: center;
     justify-content: center;
-    margin-right: 50px;
+    margin-right: 30px;
     text-shadow: 2.5px 2.5px rgba(0, 0, 0, .9);
     background: #764b81;
     cursor: pointer;

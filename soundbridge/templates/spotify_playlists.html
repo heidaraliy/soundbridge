@@ -7,14 +7,14 @@
     <div class="playlist-intro">
         <p> 
             <span class="gradient-text">::your playlists::</span>
-            contains details on your music libraries -- get in-depth listening statistics for each of your music services. click on one of your playlist tabs below to view your playlists. 
+            contains details on your music libraries. see information about your playlists across different music services. click on one of your playlist tabs below to view your playlists. 
         </p>
     </div>
     <div class="playlist-display-container">
         <div class="playlist-list">
             <div class="playlist-tabs">
-                <a class="tab"><img src="{{ url_for('static', filename='../static/assets/Spotify_Icon_RGB_Green.png') }}" style="height: 24px;"></a>
-                <a class="tab" href="{{ url_for('main.show_youtube_music_playlists', playlists=youtube_playlists) }}"><img src="{{ url_for('static', filename='../static/assets/youtube_music_logo.jpg') }}" style="height: 28px;"></a>
+                <a class="tab-active"><img src="{{ url_for('static', filename='../static/assets/Spotify_Icon_RGB_Green.png') }}" style="height: 22px;"></a>
+                <a class="tab" href="{{ url_for('main.show_youtube_playlists', page=1) }}"><img src="{{ url_for('static', filename='../static/assets/unnamed.png') }}" style="height: 24px;"></a>
             </div>
             <ul>
                 <img src="{{ url_for('static', filename='../static/assets/Spotify_Logo_RGB_White.png') }}" style="width: auto; height: 50px; display: flex; margin-bottom: 20px;">
@@ -36,11 +36,6 @@
                 {% endfor %}
             </div>
         </div>
-        <!-- <div class="playlist-list">
-            <ul style="margin-top: 0.3rem;">
-                <div class="gradient-text" style="margin-bottom: 16px;">::your playlist insights::</div>
-            </ul>
-        </div> -->
     </div>  
 </div>
 {% endblock %}

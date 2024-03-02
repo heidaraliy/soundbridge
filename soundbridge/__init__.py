@@ -1,20 +1,32 @@
+import re
 from flask import Flask
 from .extensions import oauth
 from .views.main import main
+from datetime import timedelta
 
 import os
 
 def create_app():
 
+    # format for ms
     def format_duration(duration_ms):
         minutes = duration_ms // 60000
         seconds = (duration_ms % 60000) // 1000
         return f"{minutes}:{seconds:02}"
+    
+    # format for iso 8601
+    def parse_duration(duration):
+        match = re.match('PT(\d+H)?(\d+M)?(\d+S)?', duration).groups()
+        hours = int(match[0][:-1]) if match[0] else 0
+        minutes = int(match[1][:-1]) if match[1] else 0
+        seconds = int(match[2][:-1]) if match[2] else 0
+        return str(timedelta(hours=hours, minutes=minutes, seconds=seconds))
 
     app = Flask(__name__) 
-    app.secret_key = os.getenv('SPOTIFY_SECRET_KEY')
+    app.secret_key = os.getenv('SECRET_KEY')
 
     app.jinja_env.filters['format_duration'] = format_duration
+    app.jinja_env.filters['parse_duration'] = parse_duration
 
     app.register_blueprint(main)
 
