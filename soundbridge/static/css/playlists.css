@@ -3,7 +3,6 @@
     text-align: center;
     width: 100%;
     color: white;
-    padding-top: 36px;
 }
 
 .playlist-display-container {
@@ -11,7 +10,7 @@
 }
 
 .playlist-intro {
-    margin-top: 36px;
+    margin-top: 128px;
 }
 
 .playlist-intro p {
@@ -27,7 +26,7 @@
 .playlist-list {
     display: flex;
     margin: 0 auto;
-    width: 60%;
+    width: 70%;
     flex-direction: column;
     justify-content: center;
 }
@@ -36,23 +35,29 @@
     position: relative;
     font-size: 1.2rem;
     text-decoration: none;
-    padding: 16px;
-    margin-bottom: 8px;
-    margin-top: 8px;
+    padding: 12px;
+    margin: auto;
+    margin-bottom: 32px;
     list-style-type: none;
-    height: 320px;
+    height: 399px;
     border-radius: 2px;
     background-color: #764b81;
     box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.5);
-    z-index: 10;
+    overflow-y: auto;
+}
+
+.playlist-item-container {
+    width: 80%;
+    margin: auto;
 }
 
 .playlist-item {
     background-color: #f0f0f0; /* Light grey background */
     border-radius: 2px;
-    margin: 10px;
+    margin: 12px;
     padding: 4px;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
     
 }
 
@@ -71,25 +76,25 @@
 .playlist-tabs {
     text-align: start;
     margin: auto;
-    margin-bottom: -10px;
-    position: relative;
-    width: 90%;
     display: flex;
-    justify-content: start;
+    width: 78%;
 }
 
 .tab {
     display: flex;
-    padding: 5px 10px;
+    height: 50px;
+    width: 60px;
     background-color: white;
     color: black;
     text-decoration: none;
-    border-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
     z-index: 1;
     align-items: center;
     translate: 0px 0px;
     transition: translate 0.2s;
     font-size: 1.2rem;
+    margin-right: 1px;
 }
 
 .tab:hover {
@@ -101,11 +106,13 @@
 
 .tab-active {
     display: flex;
-    padding: 5px 10px;
-    background-color: #6e62ab;
+    height: 50px;
+    width: 60px;
+    background-color: #764b81;
     color: black;
     text-decoration: none;
-    border-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
     z-index: 1;
     align-items: center;
     translate: 0px 2px;
@@ -114,27 +121,13 @@
     margin-right: 1px;
 }
 
-.pagination {
-    text-align: center;
-    margin: auto;
-    position: relative;
-    width: 75%;
-    display: flex;
-    justify-content: center;
-    margin-top: 12px;
-    margin-bottom: 24px;
-}
-
-.pagination a, .pagination span {
-    margin: 0 4px;
-    padding: 3px 12px;
-    border-radius: 2px;
+.playlist-list-header {
+    position: sticky;
     background-color: #764b81;
-    color: white;
-    text-decoration: none;
+    padding: 24px;
+    width: 76%;
+    margin: auto;
+    z-index: 10;
+    box-shadow: 2px 2px 12px 0px rgba(0, 0, 0, 0.4);
+    border-radius: 2px;
 }
-
-.pagination span {
-    background-color: #77617c;
-}
-

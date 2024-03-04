@@ -6,12 +6,10 @@
 <!-- <div class="login-alert-container">
     <span>you're already connected to that service!</span>
 </div> -->
-<div class="login-container">
-    <div>
-        <p> 
-            <span class="gradient-text">::soundbridge::</span>
-            allows you to view & migrate your playlists from music service to music service. follow the steps below to get started.
-        </p>
+<div class="login-container" style="width: 90%; margin: auto;">
+    <div class="page-header"> 
+        <div><span class="gradient-text" style="font-size: 2rem;">::soundbridge::</span></div>
+        <p style="margin-top: 8px;">view, export & transfer your playlists from music service to music service. follow the steps below to get started.</p>
     </div>
     <div class="step-container">
         <div class="step-text-container">
@@ -26,7 +24,7 @@
         <div class="login-button-container">
             <div class="login-connection-container">
                 <a href="{{ url_for('main.spotify_login') }}" class="login-button">
-                    <img src="../static/assets/Spotify_Icon_RGB_Green.png">
+                    <img src="../static/assets/spotify_icon.png">
                     <span>login ⇒ spotify.</span> 
                 </a>
                 {% if user_connected_to_spotify %}
@@ -37,13 +35,13 @@
             </div>
             <div class="login-connection-container">
                 <a href="{{ url_for('main.youtube_login') }}" class="login-button">
-                    <img src="../static/assets/unnamed.png">
+                    <img src="../static/assets/yt_icon.png">
                     <span>login ⇒ youtube.</span> 
                 </a>
                 {% if user_connected_to_youtube %}
                 <span class="login-connection-connected">connected!</span>
                 {% else %}
-                    <span class="login-connection-not-connected">not connected.</span>
+                <span class="login-connection-not-connected">not connected.</span>
                 {% endif %}
             </div>
         </div>
@@ -60,27 +58,27 @@
         </div>
         <div class="login-button-container">
             <div class="login-connection-container">
-                <a href="{{ url_for('main.show_spotify_playlists', page=1) }}" class="login-button" style="padding-right: 24px; padding-left: 24px; width: 450px;">
-                    <span class="material-symbols-outlined" style="margin-right: 8px;">
+                <a href="{{ url_for('main.show_spotify_playlists') }}" class="login-button">
+                    <span class="material-symbols-outlined" style="margin-right: 4px; margin-top: 4px;">
                         visibility
                     </span>
                     <span>view your playlists.</span> 
                 </a>
             </div>
             <div class="login-connection-container">
-                <a href="{{ url_for('main.playlist_transfers') }}" class="login-button" style="padding-right: 24px; padding-left: 24px; width: 450px;">
-                    <span class="material-symbols-outlined" style="margin-right: 8px;">
+                <a href="{{ url_for('main.playlist_transfers') }}" class="login-button">
+                    <span class="material-symbols-outlined" style="margin-right: 4px; margin-top: 4px">
                         compare_arrows
                     </span>
                     <span>transfer your playlists.</span> 
                 </a>
             </div>
             <div class="login-connection-container">
-                <a href="{{ url_for('main.spotify_login') }}" class="login-button" style="padding-right: 24px; padding-left: 24px; width: 450px;">
-                    <span class="material-symbols-outlined" style="margin-right: 8px;">
+                <a href="{{ url_for('main.spotify_login') }}" class="login-button">
+                    <span class="material-symbols-outlined" style="margin-right: 4px;">
                         export_notes
                     </span>
-                    <span>export your playlist data.</span> 
+                    <span>export your playlists.</span> 
                 </a>
             </div>
         </div>

@@ -15,9 +15,19 @@
         <header>
             <nav>
                 <div class="navbar">
-                    <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='../static/assets/soundbridge_logo_prev_ui.png') }}" alt="logo" class="logo-img"></a>
-                    <p>tools & services</p>
-                    <p>privacy policy</p>
+                    <div style="display: flex;">
+                        <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='../static/assets/sb_logo.png') }}" alt="logo" class="logo-img"></a>
+                        <p>tools & services</p>
+                        <p>privacy policy</p>
+                    </div>
+                    <div class="login-connection-container" style="margin: 0px;">
+                        <a href="{{ url_for('main.index') }}" class="login-button" style="padding: 6px;">
+                            <span class="material-symbols-outlined" style="margin-right: 8px;">
+                                cable
+                            </span>
+                            <span>your connections.</span> 
+                        </a>
+                    </div>
                 </div>
             </nav>
         </header>
@@ -28,5 +38,8 @@
         <footer>
         </footer>
     </body>
+    {% block scripts %}
+    <script src="{{ url_for('static', filename='js/playlist_transfers.js') }}"></script>
+    {% endblock %}
 </html>
 

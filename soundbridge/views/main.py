@@ -1,15 +1,15 @@
 # soundbridge/views/main.py
 import os
 import requests
+import google.auth.transport.requests
 
-from flask import Blueprint, redirect, request, url_for, session, render_template
+from flask import Blueprint, jsonify, redirect, request, url_for, session, render_template
 from ..clients.spotify_client import get_user_playlists, get_playlist_tracks, get_playlist_name_by_id
 from ..clients.youtube_client import get_youtube_playlist_tracks, get_youtube_playlists, get_youtube_playlist_name
-from google_auth_oauthlib.flow import Flow
 from ..extensions import oauth
 from authlib.integrations.base_client.errors import OAuthError
 from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
+from google_auth_oauthlib.flow import Flow
 
 main = Blueprint('main', __name__)
 
@@ -61,23 +61,18 @@ def spotify_authorize():
         return render_template('login.html', error=error.description)
 
 # get spotify playlists
-@main.route('/spotify_playlists/page/<int:page>', methods=['GET'])
-def show_spotify_playlists(page=1):
-    per_page = 5
+@main.route('/spotify_playlists', methods=['GET'])
+def show_spotify_playlists():
     token = session.get('token')
     
     if not token:
         return redirect(url_for('main.spotify_login'))
 
     playlists = get_user_playlists(token['access_token'])
-    total_playlists = len(playlists['items'])
-    playlists_to_show = playlists['items'][(page-1)*per_page:page*per_page]
+    total_playlists = playlists['items']
 
     return render_template('spotify_playlists.html', 
-                           playlists=playlists_to_show, 
-                           total_playlists=total_playlists, 
-                           per_page=per_page, 
-                           current_page=page)
+                           playlists=total_playlists)
 
 # get spotify playlist details
 @main.route('/spotify_playlists/<playlist_id>')
@@ -156,9 +151,8 @@ def youtube_authorize():
 
     return redirect(url_for('main.index'))
 
-@main.route('/youtube_playlists/page/<int:page>')
-def show_youtube_playlists(page=1):
-    per_page = 5
+@main.route('/youtube_playlists')
+def show_youtube_playlists():
 
     youtube_credentials = session.get('youtube_credentials')
 
@@ -166,14 +160,8 @@ def show_youtube_playlists(page=1):
         return redirect(url_for('main.youtube_authorize'))
 
     playlists = get_youtube_playlists(youtube_credentials)
-    total_playlists = len(playlists)
-    playlists_to_show = playlists[(page-1)*per_page:page*per_page]
 
-    return render_template('youtube_playlists.html', 
-                           playlists=playlists_to_show,
-                           total_playlists=total_playlists,
-                           per_page=per_page,
-                           current_page=page)
+    return render_template('youtube_playlists.html', playlists=playlists)
 
 @main.route('/youtube_playlists/<playlist_id>')
 def show_youtube_playlist_tracks(playlist_id):
@@ -188,8 +176,6 @@ def show_youtube_playlist_tracks(playlist_id):
     return render_template('youtube_playlist_tracks.html', 
                            tracks=tracks, 
                            playlist_name=playlist_name)
-
-
 
 def credentials_to_dict(credentials):
     return {
@@ -208,6 +194,7 @@ def playlist_transfers():
     user_connected_to_youtube = False
     spotify_token = session.get('token')
     youtube_credentials = session.get('youtube_credentials')
+    request = google.auth.transport.requests.Request()
 
     if spotify_token and is_spotify_token_valid(spotify_token['access_token']):
         user_connected_to_spotify = True
@@ -218,7 +205,7 @@ def playlist_transfers():
     if youtube_credentials:
         credentials = Credentials(**youtube_credentials)
         if credentials.expired and credentials.refresh_token:
-            credentials.refresh(Request())
+            credentials.refresh(request)
             session['youtube_credentials'] = credentials_to_dict(credentials)
             user_connected_to_youtube = True
         elif not credentials.expired:
@@ -227,6 +214,32 @@ def playlist_transfers():
     return render_template('playlist_transfers.html', 
                            user_connected_to_spotify=user_connected_to_spotify,
                            user_connected_to_youtube=user_connected_to_youtube)
+
+@main.route('/api/get-playlists/<service_name>')
+def get_playlists(service_name):
+    youtube_credentials = session.get('youtube_credentials')
+    spotifyToken = session.get('token')
+
+    if not youtube_credentials:
+        return redirect(url_for('main.youtube_authorize'))
+    
+    if not spotifyToken:
+        return redirect(url_for('main.spotify_login'))
+
+    playlist_names = []
+
+    if service_name == 'spotify':
+        playlists = get_user_playlists(spotifyToken['access_token'])
+        playlist_names = [playlist['name'] for playlist in playlists['items']]
+        print(playlist_names)
+    elif service_name == 'youtube':
+        playlists = get_youtube_playlists(youtube_credentials)
+        playlist_names = [playlist['title'] for playlist in playlists]
+        print(playlist_names)
+    else:
+        return jsonify({"error": "Invalid service name"}), 400
+
+    return jsonify({"playlists": playlist_names})
 
 
 

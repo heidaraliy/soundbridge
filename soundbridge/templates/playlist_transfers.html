@@ -5,123 +5,84 @@
 {% block content %}
 <div class="playlist-transfer-container">
     <div class="playlist-transfer-intro">
-        <p> 
-            <span class="gradient-text">::playlist transfers::</span>
-            <span style="font-size: 1.5rem;">
-                gives you the ability to transfer your playlists between your different music services. select which service you'd like to transfer from in the 'from.' section, and then select the service you'd like to transfer to in the 'to.' section.
-            </span>
-        </p>
+        <div class="page-header"> 
+            <div><span class="gradient-text" style="font-size: 2rem;">::playlist transfers::</span></div>
+            <p style="margin-top: 8px; font-size: 1.5rem;">transfer your playlists between your different music services. select which service you'd like to transfer from in the <span class="gradient-text">::from::</span> section, and then select the service you'd like to transfer to in the <span class="gradient-text">::to::</span> section.</p>
+        </div>
     </div>
     <div class="playlist-transfer-display-container">
         <div class="playlist-transfer-selection-container from-container">
-            <span>::from::</span>
-            <div onclick="toggleDropdown('from-container')" class="selected-value from-value">
-                <span>
-                    select service to transfer from.
-                </span>
-                <span class="material-symbols-outlined" id="dropdownCaret">
-                    arrow_drop_down
-                </span>
+            <div class="playlist-transfer-list-header">
+                <div><span class="gradient-text" style="font-size: 1.8rem;">::from::</span></div>
+                <div onclick="toggleDropdown('from-container')" class="selected-value from-value">
+                    <span>
+                        select service to transfer from.
+                    </span>
+                    <span class="material-symbols-outlined" id="dropdownCaret">
+                        arrow_drop_down
+                    </span>
+                </div>
             </div>
-            <div class="custom-options from-options">
-                <div class="option"
-                     onclick="selectOption('from-container', 'spotify.', '../static/assets/Spotify_Icon_RGB_Green.png')"
-                >
-                    <img src="{{ url_for('static', filename='../static/assets/Spotify_Icon_RGB_Green.png') }}" class="service-logo">
-                    <span>spotify.</span>
+            <div class="playlist-transfer-options-container">
+                <div class="custom-options from-options">
+                    <div class="option"
+                        onclick="selectOption('from-container', 'spotify.', '../static/assets/spotify_icon.png')"
+                    >
+                        <img src="{{ url_for('static', filename='../static/assets/spotify_icon.png') }}" class="service-logo">
+                        <span>spotify.</span>
+                    </div>
+                    <div class="option"
+                        onclick="selectOption('from-container', 'youtube.', '../static/assets/yt_icon.png')"
+                    >
+                        <img src="{{ url_for('static', filename='../static/assets/yt_icon.png') }}" class="service-logo">
+                        <span>youtube.</span>
+                    </div>
                 </div>
-                <div class="option"
-                     onclick="selectOption('from-container', 'youtube.', '../static/assets/unnamed.png')"
-                >
-                    <img src="{{ url_for('static', filename='../static/assets/unnamed.png') }}" class="service-logo">
-                    <span>youtube.</span>
-                </div>
+                <div id="playlistContainer"></div>
             </div>
         </div>
-        <span class="material-symbols-outlined" style="scale: 200%;">
-            trending_flat
-        </span>
+        <div style="display: flex; flex-direction: column;">
+            <span class="material-symbols-outlined" style="transform: scale(2.5);">
+                multiple_stop
+            </span>
+            <div class="login-connection-container" style="width: 220px; margin: 30px 15px 30px 15px;">
+                <a href="{{ url_for('main.index') }}" class="login-button" style="padding: 6px;">
+                    <span class="material-symbols-outlined" style="margin-right: 4px;">
+                        sound_sampler
+                    </span>
+                    <span>begin transfer.</span> 
+                </a>
+            </div>
+        </div>
         <div class="playlist-transfer-selection-container to-container">
-            <span>::to::</span>
-            <div onclick="toggleDropdown('to-container')" class="selected-value to-value">
-                <span>
-                    select service to transfer to.
-                </span>
-                <span class="material-symbols-outlined" id="dropdownCaret">
-                    arrow_drop_down
-                </span>
-            </div>
-            <div class="custom-options from-options">
-                <div class="option"
-                     onclick="selectOption('to-container', 'spotify.', '../static/assets/Spotify_Icon_RGB_Green.png')"
-                >
-                    <img src="{{ url_for('static', filename='../static/assets/Spotify_Icon_RGB_Green.png') }}" class="service-logo">
-                    <span>spotify.</span>
-                </div>
-                <div class="option"
-                     onclick="selectOption('to-container', 'youtube.', '../static/assets/unnamed.png')"
-                >
-                    <img src="{{ url_for('static', filename='../static/assets/unnamed.png') }}" class="service-logo">
-                    <span>youtube.</span>
+            <div class="playlist-transfer-list-header">
+                <div><span class="gradient-text" style="font-size: 1.8rem;">::to::</span></div>
+                <div onclick="toggleDropdown('to-container')" class="selected-value to-value">
+                    <span>
+                        select service to transfer to.
+                    </span>
+                    <span class="material-symbols-outlined" id="dropdownCaret">
+                        arrow_drop_down
+                    </span>
                 </div>
             </div>
+            <div class="playlist-transfer-options-container">
+                <div class="custom-options to-options">
+                    <div class="option"
+                        onclick="selectOption('to-container', 'spotify.', '../static/assets/spotify_icon.png')"
+                    >
+                        <img src="{{ url_for('static', filename='../static/assets/spotify_icon.png') }}" class="service-logo">
+                        <span>spotify.</span>
+                    </div>
+                    <div class="option"
+                        onclick="selectOption('to-container', 'youtube.', '../static/assets/yt_icon.png')"
+                    >
+                        <img src="{{ url_for('static', filename='../static/assets/yt_icon.png') }}" class="service-logo">
+                        <span>youtube.</span>
+                    </div>
+                </div>
+            </div> 
         </div>
     </div>
 </div>
-
-<script>
-    
-    // toggle dropdown
-    function toggleDropdown(containerClass) {
-        var options = document.querySelector('.' + containerClass + ' .custom-options');
-        options.style.display = options.style.display === 'block' ? 'none' : 'block';
-
-        var caret = document.getElementById('dropdownCaret');
-        caret.textContent = "arrow_drop_up";
-
-    }
-
-    // close on click outside
-    window.onclick = function(event) {
-        if (!event.target.matches('.selected-value')) {
-            var dropdowns = document.querySelectorAll('.custom-options');
-            dropdowns.forEach(function(dropdown) {
-                if (dropdown.style.display === 'block') {
-                    dropdown.style.display = 'none';
-                }
-                var caret = document.getElementById('dropdownCaret');
-            });
-            caret.textContent = "arrow_drop_down";
-        }
-    }
-
-    // user clicks an option -- need to set value
-    function selectOption(containerClass, serviceName, logoPath) {
-        var selectedValueContainer = document.querySelector('.' + containerClass + ' .selected-value');
-
-        selectedValueContainer.innerHTML = '';
-
-        // img element to propagate logo (bc i'm ~fancy~)
-        var img = document.createElement('img');
-        img.src = logoPath;
-        img.alt = serviceName;
-        img.className = 'service-logo';
-
-        var name = document.createElement('span');
-        name.textContent = serviceName;
-
-        var caret = document.createElement('span');
-        caret.classList.add('material-symbols-outlined');
-        caret.style.marginLeft = "auto";
-        caret.textContent = "arrow_drop_down";
-
-        // Append the image and span to the selected value container
-        selectedValueContainer.appendChild(img);
-        selectedValueContainer.appendChild(name);
-        selectedValueContainer.appendChild(caret);
-
-        // Close the dropdown
-        toggleDropdown(containerClass);
-    }
-</script>
 {% endblock %}

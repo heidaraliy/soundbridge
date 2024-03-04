@@ -18,7 +18,6 @@
     color: white;
     font-size: 1.5rem;
     margin: 0 auto;
-    margin-bottom: 36px;
     text-shadow: 2px 2px black;
 }
 
@@ -26,10 +25,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 48px;
-    margin-right: 48px;
-    margin-top: 72px;
-    width: 90%;
+    margin-top: 128px;
+    margin-bottom: 36px;
+}
+
+.track-page-logo {
+    width: auto; 
+    height: 60px; 
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
 }
 
 .playlist-table {
