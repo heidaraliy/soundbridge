@@ -22,6 +22,7 @@ def index():
     user_connected_to_youtube = False
     spotify_token = session.get('token')
     youtube_credentials = session.get('youtube_credentials')
+    request = google.auth.transport.requests.Request()
 
     if spotify_token and is_spotify_token_valid(spotify_token['access_token']):
         user_connected_to_spotify = True
@@ -32,7 +33,7 @@ def index():
     if youtube_credentials:
         credentials = Credentials(**youtube_credentials)
         if credentials.expired and credentials.refresh_token:
-            credentials.refresh(Request())
+            credentials.refresh(request)
             session['youtube_credentials'] = credentials_to_dict(credentials)
             user_connected_to_youtube = True
         elif not credentials.expired:

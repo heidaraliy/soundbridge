@@ -1,4 +1,3 @@
-
 function toSlug(serviceName) {
     serviceName = serviceName.replace(/\.$/, '');
 
@@ -10,10 +9,10 @@ function toSlug(serviceName) {
 
 // toggle dropdown
 function toggleDropdown(containerClass) {
-    var options = document.querySelector('.' + containerClass + ' .custom-options');
-    var caret = document.querySelector('.' + containerClass + ' .dropdown-caret');
+    const options = document.querySelector(`.${containerClass} .custom-options`);
+    const caret = document.querySelector(`.${containerClass} .dropdown-caret`);
 
-    var isOptionsVisible = options.style.display === 'block';
+    const isOptionsVisible = options.style.display === 'block';
 
     // toggle options
     options.style.display = isOptionsVisible ? 'none' : 'block';
@@ -22,79 +21,133 @@ function toggleDropdown(containerClass) {
     caret.textContent = isOptionsVisible ? 'arrow_drop_down' : 'arrow_drop_up';
 }
 
-// close on click outside
-window.onclick = function(event) {
+// close on click outside, otherwise handle click
+window.addEventListener('click', function (event) {
     if (!event.target.matches('.selected-value')) {
-        var dropdowns = document.querySelectorAll('.custom-select');
-        dropdowns.forEach(function(dropdown) {
-            var options = dropdown.querySelector('.custom-options');
+        const dropdowns = document.querySelectorAll('.custom-select');
+        dropdowns.forEach(function (dropdown) {
+            const options = dropdown.querySelector('.custom-options');
             if (options.style.display === 'block') {
                 options.style.display = 'none';
-                var caret = dropdown.querySelector('.dropdown-caret');
-                caret.textContent = "arrow_drop_down";
+                const caret = dropdown.querySelector('.dropdown-caret');
+                caret.textContent = 'arrow_drop_down';
             }
         });
     }
-}
+});
 
 // user clicks an option -- need to set value
 function selectOption(containerClass, serviceName, logoPath) {
-    var selectedValueContainer = document.querySelector('.' + containerClass + ' .selected-value');
-    serviceName = toSlug(serviceName)
+    const selectedValueContainer = document.querySelector(`.${containerClass} .selected-value`);
+    serviceName = toSlug(serviceName);
 
     // clear container
     selectedValueContainer.innerHTML = '';
 
     // service logo
-    var img = document.createElement('img');
+    const img = document.createElement('img');
     img.src = logoPath;
     img.alt = serviceName;
     img.className = 'service-logo';
 
     // service name
-    var name = document.createElement('span');
+    const name = document.createElement('span');
     name.textContent = serviceName;
 
     // create caret
-    var caret = document.createElement('span');
+    const caret = document.createElement('span');
     caret.classList.add('material-symbols-outlined', 'dropdown-caret');
-    caret.style.marginLeft = "auto";
-    caret.textContent = "arrow_drop_down";
-    
+    caret.style.marginLeft = 'auto';
+    caret.textContent = 'arrow_drop_down';
+
     // all together now!
     selectedValueContainer.appendChild(img);
     selectedValueContainer.appendChild(name);
     selectedValueContainer.appendChild(caret);
 
-    // close dropdown
+    // close dropdown and fetch playlists
     toggleDropdown(containerClass);
-    fetchPlaylistsForService(serviceName);
+    if (containerClass === 'from-container') {
+        fetchPlaylistsForService(serviceName);
+    }
 
     // reapply styling
-    name.textContent = serviceName + ".";
+    name.textContent = `${serviceName}.`;
 }
 
 function fetchPlaylistsForService(serviceName) {
-    fetch('/api/get-playlists/' + serviceName)
+    fetch(`/api/get-playlists/${serviceName}`)
         .then(response => response.json())
         .then(data => {
             console.log('Playlists: ', data.playlists);
-            renderPlaylists(data.playlists);
+            renderPlaylists(data.playlists, 'from-container');
         })
         .catch(error => {
             console.error('Error fetching playlists: ', error);
         });
 }
 
-function renderPlaylists(playlists) {
-    var playlistContainer = document.getElementById('playlistContainer');
-    playlistContainer.innerHTML = '';
+function renderPlaylists(playlists, containerClass) {
+    const fromPlaylistContainer = document.querySelector(`.${containerClass} #playlistContainer`);
+    fromPlaylistContainer.innerHTML = '';
 
-    playlists.forEach(function(playlistName) {
-        var playlistElement = document.createElement('div');
+    playlists.forEach(function (playlistName) {
+        const playlistElement = document.createElement('div');
+        playlistElement.id = toSlug(playlistName);
         playlistElement.className = 'playlist-transfer-link';
         playlistElement.textContent = playlistName;
+        playlistElement.style.cursor = 'pointer';
 
-        playlistContainer.appendChild(playlistElement);
+        playlistElement.addEventListener('click', function () {
+            transferPlaylist(playlistName, containerClass);
+        });
+
+        fromPlaylistContainer.appendChild(playlistElement);
     });
+}
+
+function getSelectedService(containerClass) {
+    const selectedValueContainer = document.querySelector(`.${containerClass} .selected-value span`);
+    const selectedService = selectedValueContainer ? selectedValueContainer.textContent.replace('.', '') : null;
+    return selectedService;
+}
+
+function transferPlaylist(playlistName, fromContainerClass) {
+    // slugged playlist name
+    const playlistSlug = toSlug(playlistName);
+
+    // determine the container classes for 'from' and 'to'
+    const toContainerClass = fromContainerClass === 'from-container' ? 'to-container' : 'from-container';
+
+    // get the playlist elements from both containers
+    const fromPlaylistElement = document.querySelector(`.${fromContainerClass} #${playlistSlug}`);
+    const toPlaylistElement = document.querySelector(`.${toContainerClass} #${playlistSlug}`);
+
+    // move the playlist from 'from' to 'to' if it's not already there
+    if (fromPlaylistElement && !toPlaylistElement) {
+        const playlistElementToTransfer = fromPlaylistElement.cloneNode(true);
+        playlistElementToTransfer.addEventListener('click', function() {
+            transferPlaylist(playlistName, toContainerClass);
+        });
+
+        // remove the playlist from the 'from' container
+        fromPlaylistElement.parentElement.removeChild(fromPlaylistElement);
+
+        // add the playlist to the 'to' container
+        const toPlaylistContainer = document.querySelector(`.${toContainerClass} #playlistContainer`);
+        toPlaylistContainer.appendChild(playlistElementToTransfer);
+    } else if (toPlaylistElement) {
+        // yhe playlist is already in the 'to' container, so we need to move it back to 'from'
+        const playlistElementToTransferBack = toPlaylistElement.cloneNode(true);
+        playlistElementToTransferBack.addEventListener('click', function() {
+            transferPlaylist(playlistName, fromContainerClass);
+        });
+
+        // remove the playlist from the 'to' container
+        toPlaylistElement.parentElement.removeChild(toPlaylistElement);
+
+        // add the playlist back to the 'from' container
+        const fromPlaylistContainer = document.querySelector(`.${fromContainerClass} #playlistContainer`);
+        fromPlaylistContainer.appendChild(playlistElementToTransferBack);
+    }
 }
